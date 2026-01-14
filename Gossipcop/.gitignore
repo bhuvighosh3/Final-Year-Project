@@ -1,5 +1,5 @@
 gossipcop_env/
-gossipcop/raw/
+gossipcop/
 __pycache__/
 .DS_Store
 *.pyc
