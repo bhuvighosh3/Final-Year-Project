@@ -1,24 +1,13 @@
-import streamlit as st
-import torch
-import pandas as pd
-import numpy as np
-import networkx as nx
-import matplotlib.pyplot as plt
-import plotly.graph_objects as go
-from torch_geometric.datasets import UPFD
-from model_predict import predict, get_test_sample
-import community
-from tqdm import tqdm
-import random
-from torch_geometric.utils import to_networkx
-from sklearn.preprocessing import MinMaxScaler
-import community.community_louvain as community_louvain
+import os
 
 st.title("Fake News Detection using GCNs & SNA")
 
+# Define base directory for data paths
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 # Load datasets
-train_data = UPFD(root=".", name="gossipcop", feature="content", split="train")
-test_data = UPFD(root=".", name="gossipcop", feature="content", split="test")
+train_data = UPFD(root=BASE_DIR, name="gossipcop", feature="content", split="train")
+test_data = UPFD(root=BASE_DIR, name="gossipcop", feature="content", split="test")
 
 datasets = train_data + test_data  # Combine train and test data
 
@@ -160,8 +149,8 @@ if st.button("Run Model on Master Graph"):
 st.header("Community Detection for Rumor Subgraph")
 if st.button("Run Community Detection on Rumor Subgraph"):
     with st.spinner("Performing community detection on rumor subgraph..."):
-        train_data = UPFD(root=".", name="gossipcop", feature="content", split="train")
-        test_data = UPFD(root=".", name="gossipcop", feature="content", split="test")
+        train_data = UPFD(root=BASE_DIR, name="gossipcop", feature="content", split="train")
+        test_data = UPFD(root=BASE_DIR, name="gossipcop", feature="content", split="test")
         datasets = train_data + test_data  # Combine train and test data
         edges = []
         node_labels = {}
@@ -357,9 +346,9 @@ if st.button("Run Community Detection on Rumor Subgraph"):
 
 @st.cache_data
 def load_data():
-    train_data = UPFD(root=".", name="gossipcop", feature="content", split="train")
-    test_data = UPFD(root=".", name="gossipcop", feature="content", split="test")
-    val_data = UPFD(root=".", name="gossipcop", feature="content", split="val")
+    train_data = UPFD(root=BASE_DIR, name="gossipcop", feature="content", split="train")
+    test_data = UPFD(root=BASE_DIR, name="gossipcop", feature="content", split="test")
+    val_data = UPFD(root=BASE_DIR, name="gossipcop", feature="content", split="val")
    
     st.write(f"Train Samples: {len(train_data)}")
     st.write(f"Test Samples: {len(test_data)}")
