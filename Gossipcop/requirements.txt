@@ -1,0 +1,11 @@
+streamlit
+torch
+pandas
+numpy
+networkx
+matplotlib
+plotly
+torch-geometric
+python-louvain
+tqdm
+scikit-learn
